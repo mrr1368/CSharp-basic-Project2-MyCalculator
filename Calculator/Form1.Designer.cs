@@ -267,7 +267,7 @@
             // Form1
             // 
             AcceptButton = btnEqual;
-            AutoScaleDimensions = new SizeF(8F, 18F);
+            AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 224, 224);
             CancelButton = btnAc;
@@ -303,6 +303,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Calculator";
             Load += Form1_Load;
+            KeyDown += Form1_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }
