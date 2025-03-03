@@ -25,7 +25,7 @@ namespace Calculator
             {
                 if (char.IsDigit(btn.Text[0]))
                 {
-                    btn.Click += Number_Click;
+                    btn.Click += Number_Click; 
                 }
             }
         }
