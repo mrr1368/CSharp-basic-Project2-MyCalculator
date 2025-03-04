@@ -1,92 +1,33 @@
 ﻿using System.Data;
 using System.Linq;
+using Calculator.Logic;
+using Calculator.Services;
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
+        private readonly ICalculatorEngine _calculator;
+        private readonly InputHandler _inputHandler;
 
-        public Form1()
+        public Form1(ICalculatorEngine calculator)
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            foreach (Button btn in this.Controls.OfType<Button>())
-            {
-                if (char.IsDigit(btn.Text[0]) || btn.Text == ".")
-                {
-                    btn.Click += Number_Click;
-                }
-                else if (btn.Text == "=")
-                {
-                    btn.Click += Equal_Click;
-                }
-                else if (btn.Text == "C")
-                {
-                    btn.Click += Clear_Click;
-                }
-                else if (btn.Text == "->")
-                {
-                    btn.Click += Backspace_Click;
-                }
-                else
-                {
-                    btn.Click += Operator_Click;
-                }
-            }
-        }
-
-        private void AddCharacter(string character)
-        {
-            if (character == "." && txtCalculator.Text.Contains(".")) return;
-
-            txtCalculator.Text += character;
-        }
-
-        private void Number_Click(object? sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                AddCharacter(btn.Text);
-            }
+            _calculator = calculator;
+            _inputHandler = new InputHandler(calculator, txtCalculator, txtResult);
         }
 
         private void Equal_Click(object? sender, EventArgs? e)
         {
-            try
-            {
-                var result = new DataTable().Compute(txtCalculator.Text, null);
-                txtResult.Text = "= " + result.ToString();
-            }
-            catch (Exception)
-            {
-                txtResult.Text = "Error";
-            }
+            txtResult.Text = "= " + _calculator.Evaluate(txtCalculator.Text);
         }
 
-        private void Clear_Click(object? sender, EventArgs? e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            txtCalculator.Clear();
-            txtResult.Clear();
+            _inputHandler.InitializeButtons(this.Controls.OfType<Button>());
         }
 
-        private void Backspace_Click(object? sender, EventArgs e)
-        {
-            if (txtCalculator.Text.Length > 0)
-            {
-                txtCalculator.Text = txtCalculator.Text.Remove(txtCalculator.Text.Length - 1);
-            }
-        }
 
-        private void Operator_Click(object? sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                AddCharacter(btn.Text);
-            }
-        }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
