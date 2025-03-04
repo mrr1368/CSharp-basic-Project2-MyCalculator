@@ -22,19 +22,19 @@ namespace Calculator
             }
         }
 
-        private void Number_Click(object sender, EventArgs e)
+        private void Number_Click(object? sender, EventArgs e)
         {
             if (sender is Button btn)
             {
-               AddCharacter(btn.Text);
+                AddCharacter(btn.Text);
             }
         }
 
         private void AddCharacter(string character)
         {
-            if(character == "." && txtCalculator.Text.Contains(".")) return;
+            if (character == "." && txtCalculator.Text.Contains(".")) return;
 
-            txtCalculator.Text += character;          
+            txtCalculator.Text += character;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -42,6 +42,21 @@ namespace Calculator
             if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9))
             {
                 AddCharacter(((char)e.KeyCode).ToString());
+            }
+            else if (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9)
+            {
+                AddCharacter(((char)(e.KeyCode - Keys.NumPad0 + '0')).ToString());
+            }
+            else if (e.KeyCode == Keys.Decimal)
+            {
+                AddCharacter(".");
+            }
+            else if (e.KeyCode == Keys.Back)
+            {
+                if (txtCalculator.Text.Length > 0)
+                {
+                    txtCalculator.Text = txtCalculator.Text.Remove(txtCalculator.Text.Length - 1);
+                }
             }
         }
     }
