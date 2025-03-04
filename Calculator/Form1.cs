@@ -1,10 +1,10 @@
+﻿using System.Data;
 using System.Linq;
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
-        private bool isOperationPerformed = false;
 
         public Form1()
         {
@@ -19,7 +19,30 @@ namespace Calculator
                 {
                     btn.Click += Number_Click;
                 }
+                else if (btn.Text == "=")
+                {
+                    btn.Click += Equal_Click;
+                }
+                else if (btn.Text == "C")
+                {
+                    btn.Click += Clear_Click;
+                }
+                else if (btn.Text == "->")
+                {
+                    btn.Click += Backspace_Click;
+                }
+                else
+                {
+                    btn.Click += Operator_Click;
+                }
             }
+        }
+
+        private void AddCharacter(string character)
+        {
+            if (character == "." && txtCalculator.Text.Contains(".")) return;
+
+            txtCalculator.Text += character;
         }
 
         private void Number_Click(object? sender, EventArgs e)
@@ -30,11 +53,39 @@ namespace Calculator
             }
         }
 
-        private void AddCharacter(string character)
+        private void Equal_Click(object? sender, EventArgs? e)
         {
-            if (character == "." && txtCalculator.Text.Contains(".")) return;
+            try
+            {
+                var result = new DataTable().Compute(txtCalculator.Text, null);
+                txtResult.Text = "= " + result.ToString();
+            }
+            catch (Exception)
+            {
+                txtResult.Text = "Error";
+            }
+        }
 
-            txtCalculator.Text += character;
+        private void Clear_Click(object? sender, EventArgs? e)
+        {
+            txtCalculator.Clear();
+            txtResult.Clear();
+        }
+
+        private void Backspace_Click(object? sender, EventArgs e)
+        {
+            if (txtCalculator.Text.Length > 0)
+            {
+                txtCalculator.Text = txtCalculator.Text.Remove(txtCalculator.Text.Length - 1);
+            }
+        }
+
+        private void Operator_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                AddCharacter(btn.Text);
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -58,6 +109,37 @@ namespace Calculator
                     txtCalculator.Text = txtCalculator.Text.Remove(txtCalculator.Text.Length - 1);
                 }
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                Equal_Click(null, null);
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                Clear_Click(null, null);
+            }
+            else if (e.KeyCode == Keys.Add)
+            {
+                AddCharacter("+");
+            }
+            else if (e.KeyCode == Keys.Subtract)
+            {
+                AddCharacter("-");
+            }
+            else if (e.KeyCode == Keys.Multiply)
+            {
+                AddCharacter("*");
+            }
+            else if (e.KeyCode == Keys.Divide)
+            {
+                AddCharacter("/");
+            }
         }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+        }        
     }
 }
+    
+

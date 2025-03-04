@@ -46,22 +46,23 @@
             btnSum = new Button();
             btnEqual = new Button();
             btnDiv = new Button();
-            btnAc = new Button();
-            btnDel = new Button();
-            btnDarsad = new Button();
+            btnC = new Button();
+            txtResult = new TextBox();
+            btnBack = new Button();
             SuspendLayout();
             // 
             // txtCalculator
             // 
             txtCalculator.BackColor = Color.LightGray;
+            txtCalculator.BorderStyle = BorderStyle.None;
             txtCalculator.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtCalculator.Location = new Point(12, 19);
+            txtCalculator.Location = new Point(12, 20);
             txtCalculator.MaxLength = 15;
             txtCalculator.Multiline = true;
             txtCalculator.Name = "txtCalculator";
             txtCalculator.ReadOnly = true;
             txtCalculator.RightToLeft = RightToLeft.No;
-            txtCalculator.Size = new Size(446, 112);
+            txtCalculator.Size = new Size(446, 61);
             txtCalculator.TabIndex = 0;
             // 
             // btn1
@@ -234,35 +235,39 @@
             btnDiv.Text = "/";
             btnDiv.UseVisualStyleBackColor = true;
             // 
-            // btnAc
+            // btnC
             // 
-            btnAc.Font = new Font("Tahoma", 9F);
-            btnAc.Location = new Point(12, 138);
-            btnAc.Name = "btnAc";
-            btnAc.Size = new Size(107, 65);
-            btnAc.TabIndex = 18;
-            btnAc.Text = "AC";
-            btnAc.UseVisualStyleBackColor = true;
+            btnC.Font = new Font("Tahoma", 9F);
+            btnC.Location = new Point(12, 138);
+            btnC.Name = "btnC";
+            btnC.Size = new Size(220, 65);
+            btnC.TabIndex = 18;
+            btnC.Text = "C";
+            btnC.UseVisualStyleBackColor = true;
             // 
-            // btnDel
+            // txtResult
             // 
-            btnDel.Font = new Font("Tahoma", 9F);
-            btnDel.Location = new Point(125, 138);
-            btnDel.Name = "btnDel";
-            btnDel.Size = new Size(107, 65);
-            btnDel.TabIndex = 19;
-            btnDel.Text = "Del";
-            btnDel.UseVisualStyleBackColor = true;
+            txtResult.BackColor = Color.LightGray;
+            txtResult.BorderStyle = BorderStyle.None;
+            txtResult.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtResult.Location = new Point(12, 77);
+            txtResult.MaxLength = 15;
+            txtResult.Multiline = true;
+            txtResult.Name = "txtResult";
+            txtResult.ReadOnly = true;
+            txtResult.RightToLeft = RightToLeft.No;
+            txtResult.Size = new Size(446, 55);
+            txtResult.TabIndex = 21;
             // 
-            // btnDarsad
+            // btnBack
             // 
-            btnDarsad.Font = new Font("Tahoma", 9F);
-            btnDarsad.Location = new Point(238, 138);
-            btnDarsad.Name = "btnDarsad";
-            btnDarsad.Size = new Size(107, 65);
-            btnDarsad.TabIndex = 20;
-            btnDarsad.Text = "%";
-            btnDarsad.UseVisualStyleBackColor = true;
+            btnBack.Font = new Font("Tahoma", 9F);
+            btnBack.Location = new Point(238, 138);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(107, 65);
+            btnBack.TabIndex = 22;
+            btnBack.Text = "->";
+            btnBack.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -270,11 +275,11 @@
             AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 224, 224);
-            CancelButton = btnAc;
+            CancelButton = btnC;
             ClientSize = new Size(476, 503);
-            Controls.Add(btnDarsad);
-            Controls.Add(btnDel);
-            Controls.Add(btnAc);
+            Controls.Add(btnBack);
+            Controls.Add(txtResult);
+            Controls.Add(btnC);
             Controls.Add(btnDiv);
             Controls.Add(btnEqual);
             Controls.Add(btnSum);
@@ -304,6 +309,7 @@
             Text = "Calculator";
             Load += Form1_Load;
             KeyDown += Form1_KeyDown;
+            KeyUp += Form1_KeyUp;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -328,8 +334,8 @@
         private Button btnSum;
         private Button btnEqual;
         private Button btnDiv;
-        private Button btnAc;
-        private Button btnDel;
-        private Button btnDarsad;
+        private Button btnC;
+        private TextBox txtResult;
+        private Button btnBack;
     }
 }
