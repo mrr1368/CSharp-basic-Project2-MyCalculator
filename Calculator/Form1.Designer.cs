@@ -308,8 +308,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Calculator";
             Load += Form1_Load;
-            KeyDown += Form1_KeyDown;
-            KeyUp += Form1_KeyUp;
             ResumeLayout(false);
             PerformLayout();
         }
