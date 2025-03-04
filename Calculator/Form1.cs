@@ -21,9 +21,7 @@ namespace Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _inputHandler.InitializeButtons(this.Controls.OfType<Button>());
-            this.KeyDown += _inputHandler.HandleKeyDown;
-            this.KeyUp += _inputHandler.HandleKeyUp;
+            _inputHandler.Initialize(this.Controls.OfType<Button>());
         }
 
 
